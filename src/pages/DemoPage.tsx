@@ -1,9 +1,21 @@
 import { useParams, Link } from 'react-router-dom'
+import { useRef } from 'react'
 import { demos } from '../data/demos'
 
 export default function DemoPage() {
   const { id } = useParams<{ id: string }>()
   const demo = demos.find((d) => d.id === id)
+  const demoRef = useRef<HTMLDivElement>(null)
+
+  const handleFullscreen = () => {
+    if (demoRef.current) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen()
+      } else {
+        demoRef.current.requestFullscreen()
+      }
+    }
+  }
 
   if (!demo) {
     return (
@@ -118,22 +130,33 @@ export default function DemoPage() {
           </div>
 
           {/* Right: Demo Area */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <div className="bg-gray-100 px-4 py-3 border-b border-gray-200 flex items-center gap-2">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-400"></div>
+          <div className="lg:col-span-2" ref={demoRef}>
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden h-full">
+              <div className="bg-gray-100 px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                  </div>
+                  <span className="text-sm text-gray-500 ml-2">
+                    {demo.title} - {demo.demoUrl ? '交互演示' : '演示视频'}
+                  </span>
                 </div>
-                <span className="text-sm text-gray-500 ml-2">
-                  {demo.title} - {demo.demoUrl ? '交互演示' : '演示视频'}
-                </span>
+                <button
+                  onClick={handleFullscreen}
+                  className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded transition-colors"
+                  title="全屏"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                  </svg>
+                </button>
               </div>
               {demo.demoUrl ? (
                 <iframe
                   src={demo.demoUrl}
-                  className="w-full h-[600px] border-0"
+                  className="w-full h-[calc(100%-48px)] min-h-[600px] border-0"
                   title={demo.title}
                 />
               ) : demo.videoUrl ? (
@@ -158,7 +181,7 @@ export default function DemoPage() {
                   )}
                 </div>
               ) : (
-                <div className="w-full h-[600px] flex items-center justify-center bg-gray-50">
+                <div className="w-full h-[calc(100%-48px)] min-h-[600px] flex items-center justify-center bg-gray-50">
                   <div className="text-center">
                     <img
                       src={demo.coverImage}

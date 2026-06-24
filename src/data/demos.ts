@@ -19,7 +19,7 @@ export const demos: Demo[] = [
     title: 'LLM 代码审查数据生成系统',
     description: '基于 LLM 的代码审查数据自动生成系统。自动分析 Git 仓库历史提交，定位 Bug 引入提交（BIC），用 AI 生成专业代码审查报告，批量生产带标注的训练数据。',
     tags: ['LLM', 'SZZ算法', 'Python', '代码审查', '数据生成'],
-    coverImage: '/demos/codereview_dataset.png',
+    coverImage: '/showcase/demos/codereview_dataset.png',
     githubUrl: 'https://github.com/JIAYI-world/paper',
     demoUrl: 'https://majorette-cinch-moonstone.ngrok-free.dev',
     demoPassword: 'demo2024',
@@ -38,8 +38,8 @@ export const demos: Demo[] = [
     title: '多智能体代码审查系统',
     description: '基于 LangGraph 的 7 阶段 DAG 工作流，三个 AI 专家（缺陷、语义、安全）并行审查代码，独立验证器交叉验证，输出结构化审查报告。全链路可观测，误报率降低 20%+。',
     tags: ['LangGraph', '多智能体', '代码审查', 'Langfuse', '可观测'],
-    coverImage: '/demos/langgraph_review.png',
-    videoUrl: '/demos/langfuse_codereview.mp4',
+    coverImage: '/showcase/demos/langgraph_review.png',
+    videoUrl: '/showcase/demos/langfuse_codereview.mp4',
     features: [
       '三路并行审查 - 缺陷/语义/安全三个维度同时审查，互不干扰',
       '独立验证（反驳式）- 每条发现由独立 Verifier 交叉验证，"考生不能给自己改卷"',
@@ -56,7 +56,7 @@ export const demos: Demo[] = [
     title: 'AI 会议全流程管理工具',
     description: '覆盖"会前筹备 → 会后纪要"完整链路的 AI 会议管理工具。AI 做重复性工作，人聚焦决策本身。会前自动整理素材生成议程，会后一键提炼结构化纪要、决策台账和待办看板。',
     tags: ['React', 'AI', '会议管理', '生产力工具', 'GitHub Pages'],
-    coverImage: '/demos/meeting.png',
+    coverImage: '/showcase/demos/meeting.png',
     demoUrl: 'https://jiayi-world.github.io/meeting/',
     features: [
       '会前素材管理 - 语料池自动摘要+标记相关度，告别手动复制粘贴',
