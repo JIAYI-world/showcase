@@ -1,7 +1,12 @@
+import { useState } from 'react'
 import DemoCard from '../components/DemoCard'
 import { demos } from '../data/demos'
 
 export default function Home() {
+  const [showResume, setShowResume] = useState(false)
+
+  const base = window.location.hostname === 'localhost' ? '/' : '/showcase/'
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -14,7 +19,7 @@ export default function Home() {
             你好，我是 JIAYI
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            2026 届校招求职者 | 专注于 AI + 软件工程
+            2027 届校招求职者 | 专注于 AI + 软件工程
           </p>
           <div className="mt-6 flex justify-center gap-4">
             <a
@@ -25,12 +30,12 @@ export default function Home() {
             >
               GitHub 主页
             </a>
-            <a
-              href="mailto:your-email@example.com"
+            <button
+              onClick={() => setShowResume(true)}
               className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
             >
               联系我
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -44,6 +49,39 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Resume Modal */}
+      {showResume && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setShowResume(false)}>
+          <div className="bg-white rounded-xl shadow-2xl w-[90vw] h-[90vh] max-w-4xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">个人简历</h3>
+              <div className="flex items-center gap-3">
+                <a
+                  href={`${base}resume.pdf`}
+                  download="JIAYI_简历.pdf"
+                  className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  下载简历
+                </a>
+                <button
+                  onClick={() => setShowResume(false)}
+                  className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <iframe
+              src={`${base}resume.pdf`}
+              className="w-full h-[calc(100%-73px)] border-0"
+              title="简历"
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
